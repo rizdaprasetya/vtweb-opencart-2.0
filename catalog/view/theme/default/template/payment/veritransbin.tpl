@@ -7,14 +7,14 @@
   if ($pay_type == 'vtweb'): ?>
   <div class="buttons">
 		<div class="pull-right">
-		<input type="button" value="<?php echo $button_confirm ?>" id="button-confirm" class="btn btn-primary " data-loading-text="<?php echo $text_loading; ?>"  />
+		<input type="button" value="<?php echo $button_confirm ?>" id="button-confirm-bin" class="btn btn-primary " data-loading-text="<?php echo $text_loading; ?>"  />
 		</div>
 	</div>
 
   <script>
-  $('#button-confirm').on('click', function() {
+  $('#button-confirm-bin').on('click', function() {
     $.ajax({
-      url: 'index.php?route=payment/veritrans/process_order',
+      url: 'index.php?route=payment/veritransbin/process_order',
       cache: false,
       beforeSend: function() {
         $('#button-confirm').button('loading');
@@ -101,7 +101,7 @@
     </div>
     <!-- VT-Direct form -->
 
-    <?php if ($this->config->get('veritrans_api_version') == 1): ?>
+    <?php if ($this->config->get('veritransbin_api_version') == 1): ?>
       <script type="text/javascript">
         $(function() {
           $.getScript('https://payments.veritrans.co.id/vtdirect/veritrans.min.js')
@@ -141,14 +141,14 @@
       <script>
         $(
         function(){
-          <?php if ($this->config->get('veritrans_environment') == 'production'): ?>
+          <?php if ($this->config->get('veritransbin_environment') == 'production'): ?>
             var url = 'https://api.veritrans.co.id/assets/js/veritrans.js';
           <?php else: ?>
             var url = 'https://api.sandbox.veritrans.co.id/v2/assets/js/veritrans.js';
           <?php endif ?>
           $.getScript(url).done(function() {
 
-            <?php if ($this->config->get('veritrans_environment') == 'development'): ?>
+            <?php if ($this->config->get('veritransbin_environment') == 'development'): ?>
               Veritrans.url = 'https://api.sandbox.veritrans.co.id/v2/token';
             <?php endif ?>
             Veritrans.client_key = '<?php echo $this->config->get('veritrans_client_key_v2') ?>'; // please add client-key from veritrans

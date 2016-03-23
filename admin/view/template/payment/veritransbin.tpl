@@ -40,10 +40,10 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label" for="input-mode"><?php echo $entry_status; ?></label>
 							<div class="col-sm-3">
-							  <select name="veritrans_status" id="input-mode" class="form-control">
+							  <select name="veritransbin_status" id="input-mode" class="form-control">
 								<?php $options = array('1' => $text_enabled, '0' => $text_disabled) ?>
 								<?php foreach ($options as $key => $value): ?>
-								  <option value="<?php echo $key ?>" <?php if ($key == $veritrans_status) echo 'selected' ?> ><?php echo $value ?></option>
+								  <option value="<?php echo $key ?>" <?php if ($key == $veritransbin_status) echo 'selected' ?> ><?php echo $value ?></option>
 								<?php endforeach ?>
 							  </select>
 							</div>
@@ -54,7 +54,7 @@
 						<div class="form-group required">
 							<label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_display_name; ?></label>
 							<div class="col-sm-3">
-							  <input type="text" name="veritrans_display_name" value="<?php echo $veritrans_display_name; ?>" id="input-merchant-id" class="form-control" />
+							  <input type="text" name="veritransbin_display_name" value="<?php echo $veritransbin_display_name; ?>" id="input-merchant-id" class="form-control" />
 							</div>
 							<div class="col-sm-3">
 								<?php if (isset($error['display_name'])) { ?>
@@ -67,10 +67,10 @@
 						<div class="form-group v2_settings sensitive required">
 							<label class="col-sm-2 control-label" for="input-mode"><?php echo $entry_environment; ?></label>
 							<div class="col-sm-3">
-								<select name="veritrans_environment" id="input-mode" class="form-control">
+								<select name="veritransbin_environment" id="input-mode" class="form-control">
 									<?php $options = array('development' => 'Sandbox', 'production' => 'Production') ?>
 									<?php foreach ($options as $key => $value): ?>
-									<option value="<?php echo $key ?>" <?php if ($key == $veritrans_environment) echo 'selected' ?> ><?php echo $value ?></option>
+									<option value="<?php echo $key ?>" <?php if ($key == $veritransbin_environment) echo 'selected' ?> ><?php echo $value ?></option>
 									<?php endforeach ?>
 								</select>
 							</div>
@@ -85,7 +85,7 @@
 						<div class="form-group required v2_settings sensitive">
 							<label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_client_key; ?></label>
 							<div class="col-sm-3">
-							  <input type="text" name="veritrans_client_key_v2" value="<?php echo $veritrans_client_key_v2; ?>" id="input-merchant-id" class="form-control" />
+							  <input type="text" name="veritransbin_client_key_v2" value="<?php echo $veritransbin_client_key_v2; ?>" id="input-merchant-id" class="form-control" />
 							</div>
 							<div class="col-sm-3">
 								<?php if (isset($error['client_key_v2'])) { ?>
@@ -99,7 +99,7 @@
 						<div class="form-group required v2_settings sensitive">
 							<label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_server_key; ?></label>
 							<div class="col-sm-3">
-							  <input type="text" name="veritrans_server_key_v2" value="<?php echo $veritrans_server_key_v2; ?>" id="input-merchant-id" class="form-control" />
+							  <input type="text" name="veritransbin_server_key_v2" value="<?php echo $veritransbin_server_key_v2; ?>" id="input-merchant-id" class="form-control" />
 							</div>
 							<div class="col-sm-3">
 								<?php if (isset($error['server_key_v2'])) { ?>
@@ -112,10 +112,10 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label" for="input-mode"><?php echo $entry_payment_type; ?></label>
 							<div class="col-sm-3">
-								<select name="veritrans_payment_type" id="veritransPaymentType" class="form-control">
+								<select name="veritransbin_payment_type" id="veritransbinPaymentType" class="form-control">
 								<?php $options = array('vtweb' => 'VT-Web', 'vtdirect' => 'VT-Direct'); ?>
 								<?php foreach ($options as $key => $value): ?>
-								<option value="<?php echo $key ?>" <?php if ($key == $veritrans_payment_type) echo 'selected' ?> ><?php echo $value ?></option>
+								<option value="<?php echo $key ?>" <?php if ($key == $veritransbin_payment_type) echo 'selected' ?> ><?php echo $value ?></option>
 								<?php endforeach ?>
 								</select>
 							</div>
@@ -147,12 +147,12 @@
 						  ?>
 						  <div class="checkbox">
 								<?php foreach ($payment_types as $key => $val): ?>
-								<?php $isChecked = isset($veritrans_enabled_payments)
-									&& array_key_exists($key, $veritrans_enabled_payments)
-									&& $veritrans_enabled_payments[$key];
+								<?php $isChecked = isset($veritransbin_enabled_payments)
+									&& array_key_exists($key, $veritransbin_enabled_payments)
+									&& $veritransbin_enabled_payments[$key];
 								?>
 									<label>
-									<input class="check-box" type="checkbox" value="on" name="veritrans_enabled_payments[<?php echo $key; ?>]" <?php if ($isChecked) echo 'checked'; ?>/>
+									<input class="check-box" type="checkbox" value="on" name="veritransbin_enabled_payments[<?php echo $key; ?>]" <?php if ($isChecked) echo 'checked'; ?>/>
 									<?php echo $val; ?>
 									</label>
 								<?php endforeach ?>
@@ -165,7 +165,7 @@
 
 							<div class="checkbox">
 							<label>
-							<input type="checkbox" class="check-box" name="veritrans_3d_secure" <?php if ($veritrans_3d_secure) echo 'checked'; ?> />You must enable 3D Secure. Please contact us if you wish to disable this feature in the Production environment.
+							<input type="checkbox" class="check-box" name="veritransbin_3d_secure" <?php if ($veritransbin_3d_secure) echo 'checked'; ?> />You must enable 3D Secure. Please contact us if you wish to disable this feature in the Production environment.
 							</label>
 							</div>
 
@@ -175,10 +175,10 @@
 					<!-- 	<div class="form-group v2_settings sensitive required">
 						<label class="col-sm-2 control-label" for="input-merchant-id">Enable Installment</label>
 							<div class="col-sm-3">
-								<select name="veritrans_installment_option" id="installmentOption" class="form-control">
+								<select name="veritransbin_installment_option" id="installmentOption" class="form-control">
 								<?php //$options = array('off' => 'Off', 'all_product' => 'All Products', 'certain_product' => 'Certain Product') ?>
 								<?php// foreach ($options as $key => $value): ?>
-								<option value="<?php //echo $key ?>" <?php //if ($key == $veritrans_installment_option)// echo 'selected' ?> ><?php //echo $value ?></option>
+								<option value="<?php //echo $key ?>" <?php //if ($key == $veritransbin_installment_option)// echo 'selected' ?> ><?php //echo $value ?></option>
 								<?php //endforeach ?>
 								</select>
 							</div>
@@ -196,11 +196,11 @@
 						  ?>
 						  <div class="checkbox">
 						  	<?php //foreach ($installment_banks as $key => $val): ?>
-							<?php //$isChecked = (isset($veritrans_installment_banks) && array_key_exists($key, $veritrans_installment_banks)&& $veritrans_installment_banks[$key]);
+							<?php //$isChecked = (isset($veritransbin_installment_banks) && array_key_exists($key, $veritransbin_installment_banks)&& $veritransbin_installment_banks[$key]);
 							?>
 								<label>
 								<input type="checkbox" class="check-box installmentBank installmentBank_<?=$key?>"
-								name="veritrans_installment_banks[<?php //echo $key; ?>]"
+								name="veritransbin_installment_banks[<?php //echo $key; ?>]"
 								<?php// if ($isChecked) echo 'checked'; ?>>
 									<?php //echo $val; ?>
 								</label>
@@ -213,7 +213,7 @@
 							<label class="col-sm-2 control-label" >Bni Term</label>
 							<div class="col-sm-2  ">
 								<label>
-								<input type="text" class="check-box" value="<?=$veritrans_installment_bni_term?>" name="veritrans_installment_bni_term" />
+								<input type="text" class="check-box" value="<?=$veritransbin_installment_bni_term?>" name="veritransbin_installment_bni_term" />
 								</label>
 							</div>
 						</div> -->
@@ -223,7 +223,7 @@
 							<label class="col-sm-2 control-label" >Mandiri Term</label>
 							<div class="col-sm-2  ">
 								<label>
-								<input type="text" class="check-box" name="veritrans_installment_mandiri_term" value=<?=$veritrans_installment_mandiri_term?>>
+								<input type="text" class="check-box" name="veritransbin_installment_mandiri_term" value=<?=$veritransbin_installment_mandiri_term?>>
 								</label>
 							</div>
 						</div> -->
@@ -234,9 +234,9 @@
 						<div class="form-group required">
 						<label class="col-sm-2 control-label" for="input-merchant-id"><?php echo ${'entry_' . $status} ?></label>
 							<div class="col-sm-3">
-								<select name="<?php echo 'veritrans_' . $status ?>" id="veritransPaymentType" class="form-control">
+								<select name="<?php echo 'veritransbin_' . $status ?>" id="veritransbinPaymentType" class="form-control">
 							  <?php foreach ($order_statuses as $option): ?>
-								<option value="<?php echo $option['order_status_id'] ?>" <?php if ($option['order_status_id'] == ${'veritrans_' . $status}) echo 'selected' ?> ><?php echo $option['name'] ?></option>
+								<option value="<?php echo $option['order_status_id'] ?>" <?php if ($option['order_status_id'] == ${'veritransbin_' . $status}) echo 'selected' ?> ><?php echo $option['name'] ?></option>
 							  <?php endforeach ?>
 								</select>
 							</div>
@@ -248,7 +248,7 @@
 						<div class="form-group required">
 							<label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_currency_conversion; ?></label>
 							<div class="col-sm-3">
-							  <input type="text" name="veritrans_currency_conversion" value="<?php echo $veritrans_currency_conversion; ?>" class="form-control" />
+							  <input type="text" name="veritransbin_currency_conversion" value="<?php echo $veritransbin_currency_conversion; ?>" class="form-control" />
 							  <span>Set to 1 if your default currency is IDR</span>
 							</div>
 							<div class="col-sm-3">
@@ -262,10 +262,10 @@
 					<div class="form-group v2_vtweb_settings">
 						<label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_geo_zone; ?></label>
 							<div class="col-sm-3">
-								<select name="veritrans_geo_zone_id"  class="form-control">
+								<select name="veritransbin_geo_zone_id"  class="form-control">
 								<option value="0"><?php echo $text_all_zones; ?></option>
 								<?php foreach ($geo_zones as $geo_zone) { ?>
-									<?php if ($geo_zone['geo_zone_id'] == $veritrans_geo_zone_id) { ?>
+									<?php if ($geo_zone['geo_zone_id'] == $veritransbin_geo_zone_id) { ?>
 									<option value="<?php echo $geo_zone['geo_zone_id']; ?>" selected="selected"><?php echo $geo_zone['name']; ?></option>
 									<?php } else { ?>
 									<option value="<?php echo $geo_zone['geo_zone_id']; ?>"><?php echo $geo_zone['name']; ?></option>
@@ -279,7 +279,7 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_sort_order; ?></label>
 							<div class="col-sm-1">
-							  <input size="1" type="text" name="veritrans_sort_order" value="<?php echo $veritrans_sort_order; ?>" class="form-control" />
+							  <input size="1" type="text" name="veritransbin_sort_order" value="<?php echo $veritransbin_sort_order; ?>" class="form-control" />
 							</div>
 						</div>
 						<div>
@@ -298,7 +298,7 @@
   $(function() {
     function sensitiveOptions() {
       var api_version = 2;
-      var payment_type = $('#veritransPaymentType').val();
+      var payment_type = $('#veritransbinPaymentType').val();
       var api_string = 'v' + api_version + '_settings';
       var payment_type_string = payment_type;
       var api_payment_type_string = 'v' + api_version + '_' + payment_type + '_settings';
@@ -310,9 +310,9 @@
       // temporarily hide vt-direct if the API version is 2
       if (api_version == 2)
       {
-        $('#veritransPaymentTypeContainer').hide();
+        $('#veritransbinPaymentTypeContainer').hide();
       } else{
-        $('#veritransPaymentTypeContainer').show();
+        $('#veritransbinPaymentTypeContainer').show();
       }
 
     }
@@ -334,11 +334,11 @@
       }
     }
 
-    $("#veritransApiVersion").on('change', function(e, data) {
+    $("#veritransbinApiVersion").on('change', function(e, data) {
       sensitiveOptions();
     });
 
-    $("#veritransPaymentType").on('change', function(e, data) {
+    $("#veritransbinPaymentType").on('change', function(e, data) {
       sensitiveOptions();
     });
 

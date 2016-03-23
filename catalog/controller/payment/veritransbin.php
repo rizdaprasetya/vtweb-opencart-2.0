@@ -2,22 +2,22 @@
 
 require_once(DIR_SYSTEM . 'library/veritrans-php/Veritrans.php');
 
-class ControllerPaymentVeritrans extends Controller {
+class ControllerPaymentVeritransBin extends Controller {
 
   public function index() {
 
     $data['errors'] = array();
     $data['button_confirm'] = $this->language->get('button_confirm');
 
-  	$data['pay_type'] = $this->config->get('veritrans_payment_type');
+  	$data['pay_type'] = $this->config->get('veritransbin_payment_type');
     $data['text_loading'] = $this->language->get('text_loading');
 
-  	$data['process_order'] = $this->url->link('payment/veritrans/process_order');
+  	$data['process_order'] = $this->url->link('payment/veritransbin/process_order');
 
-    if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/payment/veritrans.tpl')) {
-        return $this->load->view($this->config->get('config_template') . '/template/payment/veritrans.tpl',$data);
+    if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/payment/veritransbin.tpl')) {
+        return $this->load->view($this->config->get('config_template') . '/template/payment/veritransbin.tpl',$data);
   	} else {
-  	  return $this->load->view('default/template/payment/veritrans.tpl', $data);
+  	  return $this->load->view('default/template/payment/veritransbin.tpl', $data);
   	}
 
   }
@@ -27,10 +27,10 @@ class ControllerPaymentVeritrans extends Controller {
    * If it runs successfully, it will redirect to VT-Web payment page.
    */
   public function process_order() {
-    $this->load->model('payment/veritrans');
+    $this->load->model('payment/veritransbin');
     $this->load->model('checkout/order');
     $this->load->model('total/shipping');
-    $this->load->language('payment/veritrans');
+    $this->load->language('payment/veritransbin');
 
     $data['errors'] = array();
 
@@ -40,7 +40,7 @@ class ControllerPaymentVeritrans extends Controller {
         $this->session->data['order_id']);
 
     $this->model_checkout_order->addOrderHistory($this->session->data['order_id'],
-        $this->config->get('veritrans_vtweb_challenge_mapping'));
+        $this->config->get('veritransbin_vtweb_challenge_mapping'));
 
     $transaction_details                 = array();
     $transaction_details['order_id']     = $this->session->data['order_id'];
@@ -141,16 +141,16 @@ class ControllerPaymentVeritrans extends Controller {
             'IDR'
           ));
       }
-      else if ($this->config->get('veritrans_currency_conversion') > 0) {
+      else if ($this->config->get('veritransbin_currency_conversion') > 0) {
         foreach ($item_details as &$item) {
           $item['price'] = intval($item['price']
-              * $this->config->get('veritrans_currency_conversion'));
+              * $this->config->get('veritransbin_currency_conversion'));
         }
         unset($item);
 
         $transaction_details['gross_amount'] = intval(
             $transaction_details['gross_amount']
-            * $this->config->get('veritrans_currency_conversion'));
+            * $this->config->get('veritransbin_currency_conversion'));
       }
       else {
         $data['errors'][] = "Either the IDR currency is not installed or "
@@ -175,17 +175,17 @@ class ControllerPaymentVeritrans extends Controller {
     }
 
     Veritrans_Config::$serverKey = $this->config->
-        get('veritrans_server_key_v2');
+        get('veritransbin_server_key_v2');
 
     Veritrans_Config::$isProduction =
-        $this->config->get('veritrans_environment') == 'production'
+        $this->config->get('veritransbin_environment') == 'production'
         ? true : false;
 
-    Veritrans_Config::$is3ds = $this->config->get('veritrans_3d_secure') == 'on'
+    Veritrans_Config::$is3ds = $this->config->get('veritransbin_3d_secure') == 'on'
         ? true : false;
 
     Veritrans_Config::$isSanitized =
-        $this->config->get('veritrans_sanitization') == 'on'
+        $this->config->get('veritransbin_sanitization') == 'on'
         ? true : false;
 
     $payloads = array();
@@ -195,8 +195,8 @@ class ControllerPaymentVeritrans extends Controller {
 
     try {
       $enabled_payments = array();
-      if ($this->config->has('veritrans_enabled_payments')) {
-        foreach ($this->config->get('veritrans_enabled_payments')
+      if ($this->config->has('veritransbin_enabled_payments')) {
+        foreach ($this->config->get('veritransbin_enabled_payments')
             as $key => $value) {
           $enabled_payments[] = $key;
         }
@@ -207,8 +207,8 @@ class ControllerPaymentVeritrans extends Controller {
 
       $payloads['vtweb']['enabled_payments'] = $enabled_payments;
       $is_installment = false;
-      //error_log($this->config->get('veritrans_installment_option'));
-      /*if ($this->config->get('veritrans_installment_option') == 'all_product')
+      //error_log($this->config->get('veritransbin_installment_option'));
+      /*if ($this->config->get('veritransbin_installment_option') == 'all_product')
       {
         $payment_options = array(
           'installment' => array(
@@ -216,12 +216,12 @@ class ControllerPaymentVeritrans extends Controller {
           )
         );
 
-        if ($this->config->has('veritrans_installment_banks')) {
+        if ($this->config->has('veritransbin_installment_banks')) {
           $installment_terms = array();
 
-          foreach ($this->config->get('veritrans_installment_banks')
+          foreach ($this->config->get('veritransbin_installment_banks')
               as $key => $value) {
-			    $a = $this->config->get('veritrans_installment_' . $key . '_term');
+			    $a = $this->config->get('veritransbin_installment_' . $key . '_term');
 			    $term_array = explode(',', $a);
             $installment_terms[$key] = $term_array;
           }
@@ -233,7 +233,7 @@ class ControllerPaymentVeritrans extends Controller {
           $payloads['vtweb']['payment_options'] = $payment_options;
         }
       }*/
-      /*else if ($this->config->get('veritrans_installment_option') == 'certain_product')
+      /*else if ($this->config->get('veritransbin_installment_option') == 'certain_product')
       {
 
         $payment_options = array(
@@ -288,13 +288,13 @@ class ControllerPaymentVeritrans extends Controller {
           $redirUrl = $warningUrl . $redirUrl . '&message=2';
         }
       }
-      else if ($this->config->get('veritrans_installment_option') == 'all_product' &&
+      else if ($this->config->get('veritransbin_installment_option') == 'all_product' &&
           ($transaction_details['gross_amount'] < 500000)) {
         $warningUrl = 'index.php?route=information/warning&redirLink=';
         $redirUrl = $warningUrl . $redirUrl . '&message=2';
       }
 
-      // $this->cart->clear();
+      $this->cart->clear();
       //$this->response->redirect($redirUrl);
       $this->response->setOutput($redirUrl);
     }
@@ -307,7 +307,6 @@ class ControllerPaymentVeritrans extends Controller {
 
   /**
    * Landing page when payment is finished or failure or customer pressed "back" button
-   * The Cart is cleared here, so make sure customer reach this page to ensure the cart is emptied when payment succeed
    * payment finish/unfinish/error url :
    * http://[your shop’s homepage]/index.php?route=payment/veritrans/payment_notification
    */
@@ -318,7 +317,7 @@ class ControllerPaymentVeritrans extends Controller {
 
     if( isset($_GET['order_id']) && isset($_GET['transaction_status']) && ($_GET['transaction_status'] == 'capture' || $_GET['transaction_status'] == 'pending' || $_GET['transaction_status'] == 'settlement')) {
       //if capture or pending or challenge or settlement, redirect to order received page
-      $this->cart->clear();
+      // $this->cart->clear();
       $redirUrl = $this->url->link('checkout/success&');
       $this->response->redirect($redirUrl);
 
@@ -330,7 +329,7 @@ class ControllerPaymentVeritrans extends Controller {
 
     }else if( isset($_GET['order_id']) && !isset($_GET['transaction_status'])){
       // if customer click "back" button, redirect to checkout page again
-      $redirUrl = $this->url->link('checkout/cart');
+      $redirUrl = $this->url->link('account/order');
       $this->response->redirect($redirUrl);
     }
     $this->response->redirect($redirUrl);
@@ -353,7 +352,7 @@ class ControllerPaymentVeritrans extends Controller {
     $data['content_bottom'] = $this->load->controller('common/content_bottom');
     $data['footer'] = $this->load->controller('common/footer');
     $data['header'] = $this->load->controller('common/header');
-    $data['checkout_url'] = $this->url->link('checkout/cart');
+    $data['checkout_url'] = $this->url->link('account/order');
 
     if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/payment/veritrans_checkout_failure.tpl')) {
       $this->response->setOutput($this->load->view($this->config->get('config_template') . '/template/payment/veritrans_checkout_failure.tpl', $data));
