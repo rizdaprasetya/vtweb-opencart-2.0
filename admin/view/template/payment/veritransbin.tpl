@@ -127,7 +127,7 @@
 						</div>
 						<!-- Payment Type -->
 
-						<div class="form-group v2_settings sensitive required">
+						<!-- <div class="form-group v2_settings sensitive required">
 						<label class="col-sm-2 control-label" for="input-merchant-id">Enable Payments</label>
 						  <?php
 							$payment_types = array(
@@ -157,7 +157,7 @@
 									</label>
 								<?php endforeach ?>
 							</div>
-						</div>
+						</div> -->
 						<!--enable payments-->
 
 						<div class="form-group v2_vtweb_settings sensitive required">
@@ -244,6 +244,20 @@
 					<?php endforeach ?>
 					<!-- VTWeb Mapping -->
 
+
+						<div class="form-group required">
+							<label class="col-sm-2 control-label" for="input-bin-number"><?php echo $entry_bin_number; ?></label>
+							<div class="col-sm-3">
+							  <input type="text" name="veritransbin_bin_number" value="<?php echo $veritransbin_bin_number; ?>" class="form-control" />
+							  <span>Input BIN numbers to restrict payment from only certain bank or certain BIN number only. Input multiple value separated with coma (,) | example: 4811,5,8 </span>
+							</div>
+							<div class="col-sm-3">
+								<?php if (isset($error['currency_conversion'])) { ?>
+								<div class="col-sm-3"> <?php echo $error['currency_conversion']; ?> </div>
+								<?php } ?>
+							</div>
+						</div>
+					<!-- BIN Number -->
 
 						<div class="form-group required">
 							<label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_currency_conversion; ?></label>

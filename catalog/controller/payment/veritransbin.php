@@ -9,16 +9,16 @@ class ControllerPaymentVeritransBin extends Controller {
     $data['errors'] = array();
     $data['button_confirm'] = $this->language->get('button_confirm');
 
-  	$data['pay_type'] = $this->config->get('veritransbin_payment_type');
+    $data['pay_type'] = $this->config->get('veritransbin_payment_type');
     $data['text_loading'] = $this->language->get('text_loading');
 
-  	$data['process_order'] = $this->url->link('payment/veritransbin/process_order');
+    $data['process_order'] = $this->url->link('payment/veritransbin/process_order');
 
     if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/payment/veritransbin.tpl')) {
         return $this->load->view($this->config->get('config_template') . '/template/payment/veritransbin.tpl',$data);
-  	} else {
-  	  return $this->load->view('default/template/payment/veritransbin.tpl', $data);
-  	}
+    } else {
+      return $this->load->view('default/template/payment/veritransbin.tpl', $data);
+    }
 
   }
 
@@ -195,12 +195,12 @@ class ControllerPaymentVeritransBin extends Controller {
 
     try {
       $enabled_payments = array();
-      if ($this->config->has('veritransbin_enabled_payments')) {
-        foreach ($this->config->get('veritransbin_enabled_payments')
-            as $key => $value) {
-          $enabled_payments[] = $key;
-        }
-      }
+      // if ($this->config->has('veritransbin_enabled_payments')) {
+      //   foreach ($this->config->get('veritransbin_enabled_payments')
+      //       as $key => $value) {
+      //     $enabled_payments[] = $key;
+      //   }
+      // }
       if (empty($enabled_payments)) {
         $enabled_payments[] = 'credit_card';
       }
@@ -221,8 +221,8 @@ class ControllerPaymentVeritransBin extends Controller {
 
           foreach ($this->config->get('veritransbin_installment_banks')
               as $key => $value) {
-			    $a = $this->config->get('veritransbin_installment_' . $key . '_term');
-			    $term_array = explode(',', $a);
+          $a = $this->config->get('veritransbin_installment_' . $key . '_term');
+          $term_array = explode(',', $a);
             $installment_terms[$key] = $term_array;
           }
 
@@ -248,15 +248,15 @@ class ControllerPaymentVeritransBin extends Controller {
         {
           //$options = $product['option'];
 
-  		  	foreach ($product['option'] as $option)
+          foreach ($product['option'] as $option)
           {
-        			if ($option['name'] == 'Payment')
+              if ($option['name'] == 'Payment')
               {
 
-             	 $installment_value = explode(' ', $option['value']);
+               $installment_value = explode(' ', $option['value']);
                error_log($installment_value[0]);
                error_log($installment_value[1]);
-    			     error_log($installment_value[2]);
+               error_log($installment_value[2]);
                   if (strtolower($installment_value[0]) == 'installment')
                   {
                     $is_installment = true;
@@ -265,7 +265,7 @@ class ControllerPaymentVeritransBin extends Controller {
                   }
               }
 
-  			   }
+           }
 
         }
 
@@ -275,6 +275,12 @@ class ControllerPaymentVeritransBin extends Controller {
           $payloads['vtweb']['payment_options'] = $payment_options;
         }
       }*/
+
+      // add BIN Filter
+      $binarray = explode(',', $this->config->get('veritransbin_bin_number'));
+      $payloads['vtweb']['credit_card_bins'] = $binarray;
+      // End of add bin Filter
+
 
       $redirUrl = Veritrans_VtWeb::getRedirectionUrl($payloads);
 
@@ -413,7 +419,7 @@ class ControllerPaymentVeritransBin extends Controller {
           $this->config->get('veritrans_vtweb_failure_mapping'),
           'VT-Web payment failed.');
     }
-	  else if ($transaction == 'pending') {
+    else if ($transaction == 'pending') {
       $logs .= 'pending ';
       $this->model_checkout_order->addOrderHistory(
           $notif->order_id,

@@ -10,7 +10,7 @@ class ControllerPaymentVeritransBin extends Controller {
 
     $this->load->model('setting/setting');
     $this->load->model('localisation/order_status');
-	$this->config->get('curency');
+  $this->config->get('curency');
 
 
     if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -31,7 +31,7 @@ class ControllerPaymentVeritransBin extends Controller {
       'text_successful',
       'text_fail',
       'text_all_zones',
-	  'text_edit',
+      'text_edit',
 
       'entry_api_version',
       'entry_environment',
@@ -55,6 +55,7 @@ class ControllerPaymentVeritransBin extends Controller {
       'entry_vtweb_failure_mapping',
       'entry_vtweb_challenge_mapping',
       'entry_display_name',
+      'entry_bin_number',
 
       'button_save',
       'button_cancel'
@@ -117,7 +118,8 @@ class ControllerPaymentVeritransBin extends Controller {
       'veritransbin_vtweb_failure_mapping',
       'veritransbin_vtweb_challenge_mapping',
       'veritransbin_display_name',
-      'veritransbin_enabled_payments',
+      // 'veritransbin_enabled_payments',
+      'veritransbin_bin_number',
       'veritransbin_sanitization',
       'veritransbin_installment_option',
       'veritransbin_installment_banks',
@@ -142,21 +144,21 @@ class ControllerPaymentVeritransBin extends Controller {
     $data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
 
     $this->template = 'payment/veritransbin.tpl';
-	$data['column_left'] = $this->load->controller('common/column_left');
-	$data['header'] = $this->load->controller('common/header');
-	$data['footer'] = $this->load->controller('common/footer');
-	
-	
-	if(!$this->currency->has('IDR'))
-	{
-		$data['curr'] = true;
-	}
-	else
-	{
-		$data['curr'] = false;
-	}
-	$this->response->setOutput($this->load->view('payment/veritransbin.tpl',$data));
-	
+  $data['column_left'] = $this->load->controller('common/column_left');
+  $data['header'] = $this->load->controller('common/header');
+  $data['footer'] = $this->load->controller('common/footer');
+  
+  
+  if(!$this->currency->has('IDR'))
+  {
+    $data['curr'] = true;
+  }
+  else
+  {
+    $data['curr'] = false;
+  }
+  $this->response->setOutput($this->load->view('payment/veritransbin.tpl',$data));
+  
   }
 
   protected function validate() {

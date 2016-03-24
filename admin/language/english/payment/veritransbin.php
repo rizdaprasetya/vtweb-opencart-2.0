@@ -5,7 +5,7 @@ $_['heading_title']      = 'Veritrans BIN Filter';
 // Text
 $_['text_payment']       = 'Payment';
 $_['text_success']       = 'Success: You have modified Veritrans account details!';
-$_['text_veritrans']     = '<a href="https://veritrans.co.id/" target="_blank"><img src="view/image/payment/veritrans.png" width="120px" alt="Veritrans" title="Veritrans" style="border: 1px solid #EEEEEE;" /></a>';
+$_['text_veritransbin']     = '<a href="https://veritrans.co.id/" target="_blank"><img src="view/image/payment/veritrans.png" width="120px" alt="Veritrans" title="Veritrans" style="border: 1px solid #EEEEEE;" /></a>';
 $_['text_live']          = 'Production';
 $_['text_successful']    = 'Always Successful';
 $_['text_fail']          = 'Always Fail';
@@ -34,6 +34,7 @@ $_['entry_vtweb_success_mapping'] = 'Map Payment Success Status to Order Status:
 $_['entry_vtweb_challenge_mapping'] = 'Map Payment Challenge Status to Order Status:';
 $_['entry_vtweb_failure_mapping'] = 'Map Payment Failure Status to Order Status:';
 $_['entry_display_name'] = 'Display name:';
+$_['entry_bin_number'] = 'BIN number:';
 
 // Error
 $_['error_permission']   = 'Warning: You do not have permission to modify the Veritrans Payment!';
